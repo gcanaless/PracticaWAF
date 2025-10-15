@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Super Dashboard Mamaláctico</title>
+  <style>
+    :root {
+      --bg-color: #f4f6f8;
+      --primary-color: #2c3e50;
+      --secondary-color: #34495e;
+      --card-color: #ecf0f1;
+      --text-color: #333;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav {
+      background-color: var(--secondary-color);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      padding: 0.5rem;
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    nav button:hover {
+      text-decoration: underline;
+    }
+    .container {
+      padding: 1rem;
+    }
+    .section {
+      display: none;
+      background-color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 1rem;
+    }
+    .active {
+      display: block;
+    }
+    .card {
+      background-color: var(--card-color);
+      padding: 1rem;
+      margin: 0.5rem 0;
+      border-radius: 6px;
+    }
+    canvas {
+      max-width: 100%;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.5rem;
+      text-align: left;
+    }
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Super Dashboard Mamaláctico</h1>
+    <p>Bienvenido, Estudiante Estelar 🚀</p>
+  </header>
+  <nav>
+    <button onclick="showSection('perfil')">Perfil</button>
+    <button onclick="showSection('materias')">Materias</button>
+    <button onclick="showSection('calendario')">Calendario</button>
+    <button onclick="showSection('notificaciones')">Notificaciones</button>
+    <button onclick="showSection('estadisticas')">Estadísticas</button>
+    <button onclick="showSection('tabla')">Tabla de Calificaciones</button>
+  </nav>
+  <div class="container">
+    <div id="perfil" class="section active">
+      <h2>Perfil del Estudiante</h2>
+      <div class="card">Nombre: Juan Pérez</div>
+      <div class="card">Carrera: Ingeniería Informática</div>
+      <div class="card">Correo: juan.perez@universidad.edu</div>
+    </div>
+    <div id="materias" class="section">
+      <h2>Materias Inscritas</h2>
+      <div class="card">Programación Avanzada</div>
+      <div class="card">Bases de Datos</div>
+      <div class="card">Matemáticas Discretas</div>
+      <div class="card">Inteligencia Artificial</div>
+    </div>
+    <div id="calendario" class="section">
+      <h2>Calendario Académico</h2>
+      <div class="card">15 Oct - Examen de Bases de Datos</div>
+      <div class="card">20 Oct - Entrega Proyecto de Programación</div>
+      <div class="card">30 Oct - Inicio de Receso</div>
+    </div>
+    <div id="notificaciones" class="section">
+      <h2>Notificaciones</h2>
+      <div class="card">📢 Nueva actualización en el aula virtual</div>
+      <div class="card">📢 Evaluación de docentes disponible</div>
+      <div class="card">📢 Inscripciones abiertas para el Hackathon</div>
+    </div>
+    <div id="estadisticas" class="section">
+      <h2>Estadísticas de Rendimiento</h2>
+      <canvas id="chart" width="400" height="200"></canvas>
+    </div>
+    <div id="tabla" class="section">
+      <h2>Tabla de Calificaciones</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Materia</th>
+            <th>Nota</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Programación Avanzada</td><td>95</td><td>Aprobado</td></tr>
+          <tr><td>Bases de Datos</td><td>88</td><td>Aprobado</td></tr>
+          <tr><td>Matemáticas Discretas</td><td>72</td><td>Aprobado</td></tr>
+          <tr><td>Inteligencia Artificial</td><td>65</td><td>En riesgo</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    const ctx = document.getElementById('chart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Programación', 'Bases de Datos', 'Matemáticas', 'IA'],
+        datasets: [{
+          label: 'Notas',
+          data: [95, 88, 72, 65],
+          backgroundColor: ['#3498db', '#2ecc71', '#f1c40f', '#e74c3c']
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
